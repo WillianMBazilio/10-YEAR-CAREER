@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>10 Year Career - Ang Pinakamahusay na Gabi ng Laro</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323:wght@400;700&display=swap');
+
+:root {
+  --bg: #060913;
+  --panel: #0b1220;
+  --panel2: #141f36;
+  --border: #253a60;
+  --border-focus: #f1c40f;
+  --text: #eef5ff;
+  --muted: #6c87b0;
+  --yellow: #f1c40f;
+  --green: #2ecc71;
+  --red: #e74c3c;
+  --blue: #3498db;
+  --purple: #9b59b6;
+  --orange: #e67e22;
+  --cyan: #1abc9c;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
+body {
+  background: var(--bg);
+  font-family: 'VT323', monospace;
+  color: var(--text);
+  overflow-x: hidden;
+  min-height: 100vh;
+  image-rendering: pixelated;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.15) 2px, rgba(0,0,0,0.15) 4px);
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.wrap { max-width: 1400px; margin: 0 auto; padding: 16px; }
+.screen { display: none; animation: fadeIn 0.3s ease-out; }
+.screen.active { display: block; }
+
+@keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+
+/* PIXEL FONTS & HEADINGS */
+h1, h2, h3, .px-font { font-family: 'Press Start 2P', monospace; }
+h1 { font-size: 26px; color: var(--yellow); text-shadow: 4px 4px 0 #7f6500; letter-spacing: -1px; }
+h2 { font-size: 14px; color: var(--blue); text-shadow: 2px 2px 0 #1b4f72; margin-bottom: 12px; }
+h3 { font-size: 11px; color: var(--green); }
+p { font-size: 18px; line-height: 1.4; color: var(--text); }
+
+/* CARDS & CONTAINERS */
+.card {
+  background: var(--panel);
+  border: 4px solid var(--border);
+  padding: 16px;
+  position: relative;
+  box-shadow: 6px 6px 0 rgba(0,0,0,0.4);
+  margin-bottom: 16px;
+}
+.card::after {
+  content: ''; position: absolute; inset: -4px; border: 2px solid rgba(255,255,255,0.05); pointer-events: none;
+}
+
+/* INTERFACE SYSTEM */
+.title-area { display: flex; align-items: center; gap: 16px; padding: 12px 0 24px; border-bottom: 4px dashed var(--border); margin-bottom: 20px; }
+.logo-pixel { width: 64px; height: 64px; background: var(--yellow); display: grid; place-items: center; font-size: 38px; border: 4px solid #fff; box-shadow: 4px 4px 0 rgba(0,0,0,0.5); }
+
+/* BUTTONS */
+button {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  border: 4px solid #000;
+  padding: 12px 16px;
+  cursor: pointer;
+  color: #000;
+  background: var(--yellow);
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
+  position: relative;
+  text-transform: uppercase;
+}
+button:hover { background: #f39c12; top: -2px; left: -2px; box-shadow: 6px 6px 0 rgba(0,0,0,0.4); }
+button:active { top: 4px; left: 4px; box-shadow: 0px 0px 0 #000; }
+button:disabled { filter: grayscale(1); opacity: 0.5; cursor: not-allowed; top: 0; left: 0; box-shadow: 4px 4px 0 rgba(0,0,0,0.1); }
+
+button.btn-blue { background: var(--blue); color: #fff; }
+button.btn-green { background: var(--green); color: #000; }
+button.btn-red { background: var(--red); color: #fff; }
+button.btn-purple { background: var(--purple); color: #fff; }
+
+input, select {
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  background: #04060d;
+  color: var(--text);
+  border: 4px solid var(--border);
+  padding: 8px 12px;
+  width: 100%;
+  outline: none;
+}
+input:focus { border-color: var(--yellow); }
+input[type=color] { height: 50px; padding: 2px; cursor: pointer; }
+
+/* PLAYER SELECTION GIRD */
+.grid-setup { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+@media(max-width:1024px){ .grid-setup { grid-template-columns: repeat(2, 1fr); } }
+@media(max-width:640px){ .grid-setup { grid-template-columns: 1fr; } }
+
+.p-setup-box { background: var(--panel2); border: 4px solid var(--border); padding: 14px; }
+.avatar-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 8px 0; }
+.av-tile { font-size: 24px; text-align: center; cursor: pointer; padding: 4px; border: 3px solid transparent; background: #04060d; }
+.av-tile:hover { border-color: var(--muted); }
+.av-tile.selected { border-color: var(--yellow); background: var(--panel); transform: scale(1.1); }
+
+/* MAIN CORE LAYOUT */
+.main-game-layout { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; }
+@media(max-width:1100px){ .main-game-layout { grid-template-columns: 1fr; } }
+
+.canvas-container { position: relative; width: 100%; }
+canvas#board { width: 100%; display: block; border: 4px solid var(--border); background: #080f1d; box-shadow: 6px 6px 0 rgba(0,0,0,0.5); }
+
+/* LIVE STATS AND HUD PANELS */
+.hud-wrapper { display: flex; flex-direction: column; gap: 12px; }
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 8px 0; }
+.stat-bar-container { background: #04060d; border: 2px solid var(--border); padding: 4px; position: relative; }
+.stat-label { font-size: 14px; color: var(--muted); display: flex; justify-content: space-between; margin-bottom: 2px; }
+.stat-fill { height: 8px; background: var(--blue); width: 0%; transition: width 0.4s ease; }
+
+.checklist-box { background: #050a14; border: 3px dashed var(--border); padding: 10px; max-height: 220px; overflow-y: auto; font-size: 16px; }
+.check-item { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 4px; line-height: 1.2; color: var(--muted); }
+.check-item.done { color: var(--green); text-shadow: 0 0 4px rgba(46,204,113,0.2); }
+.check-item.done .box-chk { color: var(--green); }
+
+/* DICE & ACTION RIG */
+.action-panel { display: flex; align-items: center; justify-content: space-around; gap: 12px; padding: 12px; background: var(--panel2); border: 4px solid var(--border); }
+.dice-cube { font-family: 'Press Start 2P', monospace; font-size: 36px; background: #fff; color: #000; width: 70px; height: 70px; display: grid; place-items: center; border: 4px solid #95a5a6; box-shadow: 4px 4px 0 #000; }
+
+/* DECK SYSTEM VISUAL */
+.deck-zone { display: flex; gap: 12px; align-items: center; background: #070e1b; padding: 10px; border: 3px solid var(--border); margin-top: 10px; }
+.card-back { width: 70px; height: 100px; background: linear-gradient(135deg, var(--purple), #4a235a); border: 3px solid var(--yellow); position: relative; display: flex; justify-content: center; align-items: center; font-size: 28px; box-shadow: 3px 3px 0 #000; }
+.card-back::before { content: '★'; color: var(--yellow); font-family: 'Press Start 2P'; font-size: 14px; }
+
+/* MODALS SYSTEM */
+.overlay { position: fixed; inset: 0; background: rgba(3,5,11,0.9); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 16px; }
+.overlay.show { display: flex; }
+.modal-content { width: min(680px, 100%); background: var(--panel); border: 5px solid var(--border); padding: 24px; box-shadow: 10px 10px 0 rgba(0,0,0,0.6); max-height: 95vh; overflow-y: auto; position: relative; }
+.modal-tag { display: inline-block; font-family: 'Press Start 2P'; font-size: 9px; padding: 6px 10px; color: #000; background: var(--blue); margin-bottom: 12px; }
+
+/* INTERACTIVE MINIGAMES RIG */
+.mg-container { background: #03050a; border: 4px solid var(--border); padding: 16px; margin: 12px 0; position: relative; min-height: 200px; }
+.decision-option { background: var(--panel2); border: 3px solid var(--border); padding: 12px; margin-bottom: 8px; cursor: pointer; transition: all 0.1s; }
+.decision-option:hover { border-color: var(--yellow); background: #1a2744; }
+
+/* NOTIFICATIONS & TOASTS */
+#toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
+.toast { background: var(--panel); border: 3px solid var(--yellow); padding: 12px 20px; font-family: 'Press Start 2P', monospace; font-size: 9px; color: var(--text); box-shadow: 4px 4px 0 #000; animation: slideIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+@keyframes slideIn { from { transform: translateX(120%); } to { transform: translateX(0); } }
+
+/* TROPHIES RIG */
+.trophy-bag { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.trophy-icon { font-size: 20px; background: #04060d; padding: 4px; border: 2px solid var(--border); width: 34px; height: 34px; display: grid; place-items: center; title: ''; }
+.trophy-icon.locked { filter: grayscale(1); opacity: 0.25; }
+
+/* PARTICLES CANVAS OVERLAY */
+#particle-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 99999; }
+</style>
+</head>
+<body>
+
+<canvas id="particle-canvas"></canvas>
+<div id="toast-container"></div>
+
+<div class="wrap">
+  <!-- HEADER NG LARO -->
+  <div class="title-area">
+    <div class="logo-pixel">📈</div>
+    <div class="logo-txt">
+      <h1>10 YEAR CAREER</h1>
+      <p class="px-font" style="font-size:9px; color: var(--yellow);">▶ PINAKAMAHUSAY NA PARTY GAME — SIMULASYON NG TAGUMPAY</p>
+    </div>
+  </div>
+
+  <!-- ===== SCREEN 1: SETUP / MENU ===== -->
+  <section id="menu-screen" class="screen active">
+    <div class="card">
+      <h2>▶ AYUSIN ANG MGA MAG-AARAL</h2>
+      <p style="margin-bottom: 16px; color: var(--muted);">Pumili ng 1 hanggang 4 na manlalaro upang simulan ang timeline ng karera (2026 - 2035).</p>
+      <div class="grid-setup" id="players-setup-hook"></div>
+      <div class="row" style="margin-top: 20px; display: flex; gap: 12px;">
+        <button id="btn-start-game" class="btn-green">▶ MAGSIMULA NG LARO</button>
+        <button id="btn-auto-fill" class="btn-blue">KUSANG PUNAN ANG MGA MANLALARO</button>
+      </div>
+    </div>
+    <div class="card" style="border-color: var(--purple);">
+      <h2 style="color: var(--purple);">📋 KASAYSAYAN AT MGA ALITUNTUNIN NG PARTY GAME</h2>
+      <p>• Ang bawat manlalaro ay may sariling <b>Listahan ng Tagumpay (Checklist)</b> na hango sa opisyal na 10-taong plano.<br>
+      • Sa bawat pag-ikot, bubunot ka ng isang <b>Kard ng Tadhana</b> o makakaranas ng mga <b>Interaktibong Minigame</b>.<br>
+      • Ang iyong mga desisyon ay magpapataas o magpapababa ng iyong permanenteng katangian tulad ng <i>Kaalaman, Komunikasyon, at Pananalapi</i>.<br>
+      • Pataasin ang iyong reputasyon at iwasan ang labis na Estres upang hindi makaranas ng burnout!</p>
+    </div>
+  </section>
+
+  <!-- ===== SCREEN 2: MAIN BOARD PLAYBOARD ===== -->
+  <section id="game-screen" class="screen">
+    <div class="main-game-layout">
+      <!-- KALIWANG BAHAGI: CANVAS AT AKSYON -->
+      <div class="hud-wrapper">
+        <div class="canvas-container">
+          <canvas id="board" width="800" height="520"></canvas>
+        </div>
+        
+        <div class="action-panel">
+          <div>
+            <div class="px-font" style="font-size: 10px; color: var(--muted); margin-bottom: 4px;">AKTIBONG MANLALARO</div>
+            <div id="active-player-name" class="px-font" style="font-size: 14px; color: var(--yellow);">Miyembro</div>
+          </div>
+          <div class="dice-cube" id="html-dice">?</div>
+          <button id="btn-roll-dice" class="btn-blue" style="font-size: 12px;">🎲 I-GULONG</button>
+        </div>
+
+        <div class="deck-zone">
+          <div class="card-back"></div>
+          <div>
+            <div class="px-font" style="font-size: 11px; color: var(--purple);">SINALAMING DECK NG TADAHANA</div>
+            <p style="font-size: 15px; color: var(--muted);">Awtomatikong bubunot ng kard ang system pagkalapag sa tamang takbo ng taon.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- KANANG BAHAGI: STATS NG AKTIBONG PILO, CHECKLIST, AT FEED -->
+      <div class="hud-wrapper">
+        <div class="card" style="margin-bottom: 0;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2 id="hud-profile-title" style="margin-bottom: 0;">PERMANENTENG KATANGIAN</h2>
+            <div id="hud-profile-avatar" style="font-size: 24px;">🎒</div>
+          </div>
+          
+          <div class="stats-grid" id="hud-stats-hook"></div>
+          
+          <div class="px-font" style="font-size: 10px; color: var(--orange); margin: 10px 0 4px;">MGA NAKAMIT NA SERTIPIKO AT TROPEO:</div>
+          <div class="trophy-bag" id="hud-trophies-hook"></div>
+        </div>
+
+        <div class="card" style="margin-bottom: 0;">
+          <div class="px-font" style="font-size: 11px; color: var(--cyan); margin-bottom: 6px;">📋 OPISYAL NA CHECKLIST NG PILO: <span id="hud-current-year-label">2026</span></div>
+          <div class="checklist-box" id="hud-checklist-hook"></div>
+        </div>
+
+        <div class="card" style="margin-bottom: 0; background: #04070f;">
+          <h2>LOG NG KAGANAPAN</h2>
+          <div id="game-log-feed" style="font-size: 16px; color: var(--blue); min-height: 60px; max-height: 100px; overflow-y: auto; line-height: 1.3;">
+            Maligayang pagdating sa 10 Year Career Party Game! I-gulong ang dice upang simulan ang taon.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SCREEN 3: KATAPUSAN NG KARERA ===== -->
+  <section id="final-screen" class="screen">
+    <div class="card" style="text-align: center; border-color: var(--yellow); padding: 40px 20px;">
+      <h1 style="font-size: 32px; margin-bottom: 10px;">🏆 KATAPUSAN NG 10-TAONG PLANO!</h1>
+      <p style="font-size: 22px; color: var(--muted); margin-bottom: 30px;">Lahat ng mag-aaral ay nakarating na sa dulo ng kanilang karera sa taong 2035.</p>
+      
+      <h2>PINAL NA MGA PARANGAL AT RANKING</h2>
+      <div id="final-ranking-hook" style="margin: 20px 0; display: flex; flex-direction: column; gap: 12px; text-align: left;"></div>
+      
+      <button onclick="location.reload()" class="btn-purple" style="margin-top: 20px; font-size: 14px;">▶ MAGSIMULA NG BAGONG PLANO NG KARERA</button>
+    </div>
+  </section>
+</div>
+
+<!-- ===== MODAL CORE RIG OVERLAY ===== -->
+<div class="overlay" id="game-modal-overlay">
+  <div class="modal-content" id="modal-content-wrapper">
+    <!-- Dynamic na nilalaman mula sa JS -->
+  </div>
+</div>
+
+<script>
+/* ─────────────────────────────────────────────────────────
+   AUDIO ENGINE CORE (PURE JAVASCRIPT WEB AUDIO API)
+   ───────────────────────────────────────────────────────── */
+const Sound = {
+  ctx: null,
+  init() { if(!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)(); },
+  play(freq, type, duration, vol=0.1) {
+    this.init(); if(!this.ctx) return;
+    try {
+      let osc = this.ctx.createOscillator(), gain = this.ctx.createGain();
+      osc.type = type; osc.frequency.value = freq;
+      gain.gain.setValueAtTime(vol, this.ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.00001, this.ctx.currentTime + duration);
+      osc.connect(gain); gain.connect(this.ctx.destination);
+      osc.start(); osc.stop(this.ctx.currentTime + duration);
+    } catch(e){}
+  },
+  roll() { this.play(220, 'square', 0.1, 0.08); },
+  correct() { this.play(587, 'sine', 0.1, 0.1); setTimeout(()=>this.play(880, 'sine', 0.2, 0.1), 80); },
+  wrong() { this.play(180, 'sawtooth', 0.3, 0.15); },
+  bonus() { this.play(784, 'sine', 0.08, 0.1); setTimeout(()=>this.play(1174, 'sine', 0.15, 0.1), 60); },
+  win() {
+    let notes = [523, 659, 784, 1046];
+    notes.forEach((n, i) => setTimeout(() => this.play(n, 'sine', 0.3, 0.1), i*120));
+  }
+};
+
+/* ─────────────────────────────────────────────────────────
+   GAME DATA STRUCTURES & OFFICIAL CAREER MAP CONFIG
+   ───────────────────────────────────────────────────────── */
+const AVATARS = ['🎒','💼','📈','📊','🎓','🧠','🏆','👔','🌟','🔥'];
+const COLORS = ['#3498db','#2ecc71','#e74c3c','#f1c40f','#9b59b6','#1abc9c'];
+const DEFAULT_NAMES = ['Xhia', 'Xander', 'Sofia', 'Gabriel'];
+
+const CAREER_CHECKLIST_TEMPLATE = {
+  "2026": [
+    { id: "c26_1", text: "Mapanatili ang average na 90 puntos sa pag-aaral.", done: false },
+    { id: "c26_2", text: "Makilahok sa mga club at organisasyon ng paaralan.", done: false },
+    { id: "c26_3", text: "Pahusayin ang komunikasyon at maging mas sociável.", done: false },
+    { id: "c26_4", text: "Mag-aral ng pangunahing kaalaman sa pamumuhunan at seguro.", done: false }
+  ],
+  "2027": [
+    { id: "c27_1", text: "Mapanatili ang matatag na average na 90 puntos.", done: false },
+    { id: "c27_2", text: "Pumili nang may labis na pag-iingat ng direksyon ng pag-aaral.", done: false },
+    { id: "c27_3", text: "Bumuo ng magagandang relasyon at kapaki-pakinabang na ugnayan.", done: false },
+    { id: "c27_4", text: "Tukuyin kung aling institusyon ang papasukan para sa Senior High.", done: false }
+  ],
+  "2028": [
+    { id: "c28_1", text: "Panatilihin ang grado sa itaas ng 90 puntos.", done: false },
+    { id: "c28_2", text: "Matagumpay na tapusin ang Ensino Fundamental (JHS).", done: false },
+    { id: "c28_3", text: "Mag-aplay para sa iskolarsip sa Senior High School.", done: false }
+  ],
+  "2029": [
+    { id: "c29_1", text: "Mapanatili ang grado na higit sa 90 puntos sa High School.", done: false },
+    { id: "c29_2", text: "Ganap na makuha at mapanalunan ang iskolarsip.", done: false },
+    { id: "c29_3", text: "Pumasok sa ABM (Accountancy, Business, & Management) Strand.", done: false },
+    { id: "c29_4", text: "Ihanda ang lahat ng mahahalagang dokumento para sa unibersidad.", done: false }
+  ],
+  "2030": [
+    { id: "c30_1", text: "Matagumpay na makapasok sa NU MOA.", done: false },
+    { id: "c30_2", text: "Kumuha ng kursong Bacharelado sa Administrasyon ng Negosyo (BSBA).", done: false },
+    { id: "c30_3", text: "Mapanatili ang matataas na grado sa unibersidad.", done: false },
+    { id: "c30_4", text: "Maging opisyal na bahagi ng Quadro de Alunos Destaque (Dean's List).", done: false }
+  ],
+  "2031": [
+    { id: "c31_1", text: "Dumalo at makilahok sa mga pambansang seminar sa pananalapi.", done: false },
+    { id: "c31_2", text: "Magbasa ng mga propesyonal na aklat sa larangan ng pananalapi.", done: false },
+    { id: "c31_3", text: "Ipagpatuloy ang pagpapanatili ng matataas na marka.", done: false }
+  ],
+  "2032": [
+    { id: "c32_1", text: "Mapanatili ang mahusay na pagganap sa mga akademikong kurso.", done: false },
+    { id: "c32_2", text: "Patuloy na makilahok sa mga kaganapan at seminar sa negosyo.", done: false },
+    { id: "c32_3", text: "Palalimin ang praktikal na kaalaman sa modernong pamumuhunan.", done: false }
+  ],
+  "2034": [
+    { id: "c34_1", text: "Manatili sa pinakatuktok na antas ng matataas na nota.", done: false },
+    { id: "c34_2", text: "Mag-aral mag-invest sa Philippine Stock Exchange (PSE).", done: false },
+    { id: "c34_3", text: "Gumaraduat nang may mararangal na parangal bilang Aluno Destaque.", done: false }
+  ],
+  "2035": [
+    { id: "c35_1", text: "Magtrabaho bilang isang Propesyonal na Consultor Financeiro.", done: false },
+    { id: "c35_2", text: "Mag-ipon ng sapat na salapi para sa Doutorado sa Finanças sa UP Diliman.", done: false }
+  ]
+};
+
+const BOARD_SPACES = [
+  { n:1,  year:"2026", type:"neutral",     title:"Simula ng 9º Ano", desc:"Unang hakbang sa karera. Oras upang magplano!" },
+  { n:2,  year:"2026", type:"card-draw",   title:"Club Recruiting", desc:"Pagpili ng mga organisasyon sa paaralan." },
+  { n:3,  year:"2026", type:"minigame",    title:"Recitation Drill", desc:"Hamon sa Komunikasyon sa harap ng klase!" },
+  { n:4,  year:"2026", type:"question",    title:"Investment Basics", topic:"finance" },
+  { n:5,  year:"2027", type:"neutral",     title:"Pasok sa 10º Ano", desc:"Mas mabibigat na desisyon sa hinaharap." },
+  { n:6,  year:"2027", type:"card-draw",   title:"Ugnayan Card", desc:"Pakikipagkapwa-tao sa mga bagong kaklase." },
+  { n:7,  year:"2027", type:"question",    title:"Pagsusuri ng Track", topic:"business" },
+  { n:8,  year:"2027", type:"minigame",    title:"Document Sort", desc:"Iayos ang mga papel para sa Senior High Enrollment!" },
+  { n:9,  year:"2028", type:"card-draw",   title:"Pagtatapos ng JHS", desc:"Huling taon ng Ensino Fundamental. Scholarship Hunt!" },
+  { n:10, year:"2028", type:"question",    title:"Scholarship Exam", topic:"academic" },
+  { n:11, year:"2028", type:"global",      title:"★ Pambansang Pagsusulit", globalId:0 },
+  { n:12, year:"2029", type:"neutral",     title:"Senior High ABM", desc:"Ganap nang nakapasok sa ABM Strand! Sona ng Negosyo." },
+  { n:13, year:"2029", type:"card-draw",   title:"Business Project", desc:"Gumawa ng maliit na negosyo para sa klase." },
+  { n:14, year:"2029", type:"question",    title:"Accounting Equation", topic:"business" },
+  { n:15, year:"2030", type:"neutral",     title:"Welcome sa NU MOA!", desc:"Pumasok sa National University - Mall of Asia!" },
+  { n:16, year:"2030", type:"minigame",    title:"BSBA Math Blitz", desc:"Mabilisang pagsusuri ng mga transaksyon sa kolehiyo!" },
+  { n:17, year:"2030", type:"card-draw",   title:"Dean's List Audit", desc:"Pagsusuri kung pasok ka sa Quadro de Alunos Destaque." },
+  { n:18, year:"2031", type:"global",      title:"★ Case Competition", globalId:1 },
+  { n:19, year:"2031", type:"question",    title:"Corporate Finance", topic:"finance" },
+  { n:20, year:"2031", type:"card-draw",   title:"Finance Book Club", desc:"Pagbabasa ng mga advanced na libro sa pananalapi." },
+  { n:21, year:"2032", type:"neutral",     title:"3rd Ano Milestone", desc:"Kalahating daan ng kolehiyo. Malalimang pagsasanay." },
+  { n:22, year:"2032", type:"minigame",    title:"Market Timing", desc:"Mag-invest sa tamang pagkakataon ng merkado!" },
+  { n:23, year:"2032", type:"question",    title:"Investment Risk", topic:"finance" },
+  { n:24, year:"2034", type:"neutral",     title:"4th Ano: Huling Yugto", desc:"Graduation year! Oras upang maging Aluno Destaque." },
+  { n:25, year:"2034", type:"card-draw",   title:"PSE Index Hunt", desc:"Pagsusuri ng galaw sa Philippine Stock Exchange." },
+  { n:26, year:"2034", type:"question",    title:"PSE Market Capital", topic:"business" },
+  { n:27, year:"2035", type:"neutral",     title:"Ganap na Gradwado", desc:"Nagtatrabaho na bilang Propesyonal na Consultor Financeiro!" },
+  { n:28, year:"2035", type:"minigame",    title:"Consultant Pitch", desc:"Kumbinsihin ang kliyente sa iyong investment strategy!" },
+  { n:29, year:"2035", type:"card-draw",   title:"UP Diliman Funds", desc:"Pag-iipon ng salapi para sa PhD sa Pananalapi." },
+  { n:30, year:"2035", type:"global",      title:"★ UP Diliman Entry", globalId:2 },
+  { n:31, year:"2035", type:"finish",      title:"Pangwakas na PhD!", desc:"Naabot ang tugatog ng tagumpay sa UP Diliman! Panalo!" }
+];
+
+const CARDS_POOL = [
+  { type:"Study", name:"📚 Sunog-Kilay Drill", desc:"Nag-aral ka magdamag para sa pagsusulit.", effect: { kaalaman:20, pagod:15, reputasyon:5 } },
+  { type:"Scholarship", name:"🎓 Iskolarsip Grant", desc:"Nakatanggap ng tulong pinansyal dahil sa matataas na marka.", effect: { pananalapi:25, reputasyon:15, pagod:-5 } },
+  { type:"Internship", name:"💼 Kompanya Internship", desc:"Pumasok bilang intern sa isang investment firm.", effect: { kaalaman:15, ugnayan:20, pananalapi:10 } },
+  { type:"Investment", name:"📈 Seguro at Stock Setup", desc:"Nag-set up ka ng unang proteksyon sa pananalapi.", effect: { pananalapi:20, kaalaman:10 } },
+  { type:"Networking", name:"🤝 Alumni Assembly", desc:"Nakipagkilala sa mga matatayog na nagtapos sa NU MOA.", effect: { ugnayan:25, komunikasyon:10, reputasyon:10 } },
+  { type:"Burnout", name:"😴 Matinding Pagkapagod", desc:"Masyadong mabilis ang iyong pagtakbo. Kailangang magpahinga.", effect: { pagod:-30, kaalaman:-5, komunikasyon:-5 } },
+  { type:"School Event", name:"🎉 Business Festival", desc:"Naging pinuno ka ng isang booth sa paaralan.", effect: { komunikasyon:20, ugnayan:15, reputasyon:10 } },
+  { type:"Competition", name:"🏆 Case Paligsahan", desc:"Nanalo ang iyong grupo sa pagsusuri ng lokal na negosyo.", effect: { reputasyon:25, pananalapi:15, pagod:10 } },
+  { type:"Exam Week", name:"📖 Hell Week Squeeze", desc:"Puno ng sabay-sabay na pagsusulit ang buong linggo.", effect: { kaalaman:15, pagod:25, reputasyon:5 } },
+  { type:"Financial Opportunity", name:"💰 Kliyente Referral", desc:"Isang mayamang pamilya ang humingi ng iyong payo sa pananalapi.", effect: { pananalapi:30, komunikasyon:10, reputasyon:15 } }
+];
+
+const EXPERT_QUESTIONS = {
+  finance: [
+    { q: "Ano ang tawag sa kontrata ng proteksyon kung saan nagbabayad ka ng premium upang masalo ng kumpanya ang pinsala o aksidente?", o: ["Seguro (Insurance)", "Stocks", "Bonds", "Utang"], a: 0, pts: 15 },
+    { q: "Sa pamumuhunan sa Philippine Stock Exchange (PSE), ano ang kinakatawan ng 'Dividends'?", o: ["Bahagi ng kita ng kumpanya na ibinabayad sa mga shareholder", "Multa sa huling pagbili", "Bayad sa broker", "Interes ng utang"], a: 0, pts: 20 },
+    { q: "Kung ang inflation rate sa Pilipinas ay 5% at ang bangko mo ay nagbibigay ng 2% interes, ano ang mangyayari sa totoong halaga ng iyong pera?", o: ["Bumababa ang purchasing power", "Tumataas", "Nananatiling pareho", "Doble ang halaga"], a: 0, pts: 15 }
+  ],
+  business: [
+    { q: "Alin sa mga sumusunod ang Accounting Equation na ginagamit sa ABM strand?", o: ["Assets = Liabilities + Equity", "Assets = Liabilities - Equity", "Liabilities = Assets + Equity", "Kita = Gastos"], a: 0, pts: 15 },
+    { q: "Anong uri ng estratehiya sa pamumuno ang nagbibigay ng buong kalayaan sa mga kasama na gumawa ng desisyon?", o: ["Laissez-faire", "Autocratic", "Democratic", "Bureaucratic"], a: 0, pts: 15 },
+    { q: "Ano ang pangunahing layunin ng isang Financial Consultant kapag sinusuri ang Financial Statement ng isang kliyente?", o: ["Malaman ang kakayahang kumita at kalusugan ng pananalapi", "Magtago ng buwis", "Magbenta ng produkto", "Makahiram ng pondo"], a: 0, pts: 20 }
+  ],
+  academic: [
+    { q: "Upang mapanatili ang target na average na 90, nakakuha ka ng 88, 91, at 92 sa unang tatlong kwarter. Ano ang dapat na pinakamababang marka mo sa huling kwarter?", o: ["89", "90", "91", "88"], a: 0, pts: 15 },
+    { q: "Ano ang kahulugan ng GWA na ginagamit bilang pamantayan upang maging bahagi ng Quadro de Alunos Destaque?", o: ["General Weighted Average", "Global Win Assessment", "Graduation Weekly Audit", "General Wisdom Area"], a: 0, pts: 10 }
+  ]
+};
+
+const GLOBAL_EVENTS = [
+  { id: 0, title: "★ PAMBANSANG PAGSUSULIT SA FINANCES (2028)", desc: "Lahat ng manlalaro ay sabay na sasagot. Ang interes sa ₱5,000 na may 8% simpleng interes kada taon sa loob ng 2 taon ay magkano?", o: ["₱800", "₱400", "₱1,000", "₱500"], a: 0, effect: "Tama: +20 Pananalapi | Mali: +15 Estres" },
+  { id: 1, title: "★ INTER-COLLEGE CASEPaligsahan (NU MOA)", desc: "Ano ang pinakamahalagang hakbang bago mag-invest sa stock market upang maiwasan ang malaking pagkalugi?", o: ["Gumawa ng masusing pagsusuri at fundamental analysis", "Sumunod sa hype sa social media", "I-invest ang lahat ng pera agad", "Mangutang para pang-trade"], a: 0, effect: "Tama: +25 Reputasyon | Mali: -10 Pananalapi" },
+  { id: 2, title: "★ UP DILIMAN ENTRANCE REBYU", desc: "Alin sa mga sumusunod ang pinakamataas na antas ng akademikong degree na nakasaad sa dulo ng iyong 10-taong plano?", o: ["Doutorado sa Finanças (PhD)", "Masterado (MBA)", "Bacharelado (BSBA)", "Sertipiko ng ABM"], a: 0, effect: "Tama: +30 Kaalaman, +30 Puntos! | Mali: -10 Reputasyon" }
+];
+
+const ACHIEVEMENTS_POOL = [
+  { id: "ach_90", title: "Honor Student", icon: "🥇", desc: "Mapanatili ang average na 90+ puntos." },
+  { id: "ach_abm", title: "ABM Elite", icon: "📊", desc: "Pumasok sa Administrasyon at Negosyo." },
+  { id: "ach_numoa", title: "Nationalian", icon: "🦁", desc: "Matagumpay na nakatapak sa NU MOA." },
+  { id: "ach_destaque", title: "Dean's Lister", icon: "📜", desc: "Pasok sa Quadro de Alunos Destaque." },
+  { id: "ach_pse", title: "PSE Trader", icon: "📈", desc: "Natutunan ang pag-invest sa Philippine Stock Exchange." },
+  { id: "ach_consult", title: "Financial Guru", icon: "💼", desc: "Naging ganap na Consultor Financeiro." },
+  { id: "ach_phd", title: "Diliman Scholar", icon: "🦅", desc: "Sapat ang naipon para sa PhD sa UP Diliman." }
+];
+
+/* ── GLOBAL STATE ── */
+let players = [];
+let turn = 0;
+let gameOver = false;
+let particleSystem = { particles: [], ctx: null, canvas: null };
+
+/* ─────────────────────────────────────────────────────────
+   INITIALIZATION & SETUP CORES
+   ───────────────────────────────────────────────────────── */
+window.addEventListener('DOMContentLoaded', () => {
+  setupInputs();
+  initParticleCanvas();
+  
+  $('#btn-start-game').onclick = startGame;
+  $('#btn-auto-fill').onclick = autoFillPlayers;
+  $('#btn-roll-dice').onclick = triggerDiceRoll;
+});
+
+function $(s) { return document.querySelector(s); }
+
+function initParticleCanvas() {
+  const c = $('#particle-canvas');
+  particleSystem.canvas = c;
+  particleSystem.ctx = c.getContext('2d');
+  resizeParticlesCanvas();
+  window.addEventListener('resize', resizeParticlesCanvas);
+  setInterval(updateParticles, 1000/60);
+}
+function resizeParticlesCanvas() {
+  if(particleSystem.canvas) {
+    particleSystem.canvas.width = window.innerWidth;
+    particleSystem.canvas.height = window.innerHeight;
+  }
+}
+function spawnConfetti() {
+  for(let i=0; i<60; i++) {
+    particleSystem.particles.push({
+      x: window.innerWidth / 2 + (Math.random() - 0.5) * 200,
+      y: window.innerHeight / 2 + (Math.random() - 0.5) * 100,
+      vx: (Math.random() - 0.5) * 10,
+      vy: -Math.random() * 8 - 4,
+      color: COLORS[Math.floor(Math.random() * COLORS.length)],
+      size: Math.random() * 6 + 4,
+      life: 100
+    });
+  }
+}
+function updateParticles() {
+  const ctx = particleSystem.ctx;
+  if(!ctx) return;
+  ctx.clearRect(0,0, ctx.canvas.width, ctx.canvas.height);
+  for(let i = particleSystem.particles.length - 1; i >= 0; i--) {
+    let p = particleSystem.particles[i];
+    p.x += p.vx; p.y += p.vy; p.vy += 0.2; // gravity
+    p.life--;
+    ctx.fillStyle = p.color;
+    ctx.fillRect(p.x, p.y, p.size, p.size);
+    if(p.life <= 0 || p.y > ctx.canvas.height) particleSystem.particles.splice(i, 1);
+  }
+}
+
+function showToast(msg) {
+  const box = $('#toast-container');
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  box.appendChild(t);
+  setTimeout(() => t.remove(), 2500);
+}
+
+function logFeed(txt) {
+  const f = $('#game-log-feed');
+  f.innerHTML = `<div>▶ ${txt}</div>` + f.innerHTML;
+}
+
+function setupInputs() {
+  const hook = $('#players-setup-hook');
+  hook.innerHTML = '';
+  for(let i=0; i<4; i++) {
+    const box = document.createElement('div');
+    box.className = 'p-setup-box card';
+    box.innerHTML = `
+      <h3>MAG-AARAL ${i+1}</h3>
+      <span style="font-size:14px; color: var(--muted); display:block; margin-top:6px;">Pangalan:</span>
+      <input id="setup-name-${i}" value="${i===0 ? 'Xhia' : ''}" placeholder="${i===0 ? 'Xhia':'Opsyonal'}"/>
+      <span style="font-size:14px; color: var(--muted); display:block; margin-top:6px;">Piliin ang Mukha:</span>
+      <div class="avatar-grid" id="setup-av-grid-${i}"></div>
+      <span style="font-size:14px; color: var(--muted); display:block; margin-top:6px;">Tema ng Kulay:</span>
+      <input id="setup-color-${i}" type="color" value="${COLORS[i % COLORS.length]}"/>
+    `;
+    hook.appendChild(box);
+    
+    const avGrid = $('#setup-av-grid-'+i);
+    AVATARS.forEach((av, idx) => {
+      const tile = document.createElement('div');
+      tile.className = 'av-tile' + (idx === i ? ' selected' : '');
+      tile.textContent = av;
+      tile.dataset.av = av;
+      tile.onclick = () => {
+        avGrid.querySelectorAll('.av-tile').forEach(t => t.classList.remove('selected'));
+        tile.classList.add('selected');
+      };
+      avGrid.appendChild(tile);
+    });
+  }
+}
+
+function autoFillPlayers() {
+  for(let i=1; i<4; i++) {
+    $('#setup-name-'+i).value = DEFAULT_NAMES[i];
+  }
+  showToast("MGA SLOT AY KUSANG PINUNAN!");
+  Sound.bonus();
+}
+
+function startGame() {
+  Sound.init();
+  players = [];
+  for(let i=0; i<4; i++) {
+    const name = $('#setup-name-'+i).value.trim();
+    if(!name) continue;
+    const selAv = $('#setup-av-grid-'+i).querySelector('.av-tile.selected');
+    const avatar = selAv ? selAv.dataset.av : AVATARS[i];
+    const color = $('#setup-color-'+i).value;
+    
+    // Malalim na instansya ng manlalaro na may mga katangian at sariling checklist
+    players.push({
+      name, avatar, color,
+      pos: 0, score: 0, skip: 0, errors: 0, finished: false,
+      stats: { kaalaman: 30, komunikasyon: 30, ugnayan: 30, pananalapi: 30, reputasyon: 30, pagod: 10 },
+      checklist: JSON.parse(JSON.stringify(CAREER_CHECKLIST_TEMPLATE)),
+      achievements: []
+    });
+  }
+  
+  if(players.length === 0) {
+    alert("Mangyaring maglagay ng kahit isang manlalaro (Halimbawa: Xhia)");
+    return;
+  }
+  
+  $('#menu-screen').classList.remove('active');
+  $('#game-screen').classList.add('active');
+  turn = 0;
+  updateHUD();
+  drawBoard();
+  logFeed("Nagsimula ang iyong 10-taong plano! Unang tira ni " + players[0].name);
+  Sound.win();
+}
+
+/* ─────────────────────────────────────────────────────────
+   HUD ENGINE & DYNAMIC CHECKLISTS
+   ───────────────────────────────────────────────────────── */
+function updateHUD() {
+  if(players.length === 0 || gameOver) return;
+  const p = players[turn];
+  
+  $('#active-player-name').textContent = `${p.avatar} ${p.name}`;
+  $('#active-player-name').style.color = p.color;
+  
+  // Render profile metadata
+  $('#hud-profile-title').innerHTML = `KATANGIAN NI <span style="color:${p.color}">${p.name}</span><br><span class="px-font" style="font-size:10px; color:var(--yellow);">${p.score} MARKA (PTS)</span>`;
+  $('#hud-profile-avatar').textContent = p.avatar;
+  
+  // Real-time progress attributes filling
+  const labelsMap = {
+    kaalaman: "Kaalaman (Knowledge)",
+    komunikasyon: "Komunikasyon (Comm)",
+    ugnayan: "Networking (Ugnayan)",
+    pananalapi: "Pananalapi (Finance)",
+    reputasyon: "Reputasyon (Rep)",
+    pagod: "Estres / Pagod"
+  };
+  
+  let statsHTML = '';
+  for(let key in p.stats) {
+    let val = Math.min(100, Math.max(0, p.stats[key]));
+    let color = varColor(key, val);
+    statsHTML += `
+      <div class="stat-bar-container">
+        <div class="stat-label">
+          <span>${labelsMap[key]}</span>
+          <span style="color:${color}">${val}%</span>
+        </div>
+        <div class="stat-fill" style="width:${val}%; background:${color};"></div>
+      </div>
+    `;
+  }
+  $('#hud-stats-hook').innerHTML = statsHTML;
+
+  // Render Trophies/Achievements
+  let trophiesHTML = '';
+  ACHIEVEMENTS_POOL.forEach(ach => {
+    let unlocked = p.achievements.includes(ach.id);
+    trophiesHTML += `<div class="trophy-icon ${unlocked ? '' : 'locked'}" title="${ach.title}: ${ach.desc}">${ach.icon}</div>`;
+  });
+  $('#hud-trophies-hook').innerHTML = trophiesHTML;
+
+  // Update Checklist base sa kasalukuyang taon ng pwesto ng manlalaro
+  const currentSpace = BOARD_SPACES[p.pos];
+  const cYear = currentSpace ? currentSpace.year : "2026";
+  $('#hud-current-year-label').textContent = cYear + ` (Tahanan ${p.pos + 1})`;
+  
+  // Awtomatikong kalkulahin ang checklist updates bago i-render
+  syncChecklistObjectives(p);
+  
+  let chkHTML = '';
+  if(p.checklist[cYear]) {
+    p.checklist[cYear].forEach(item => {
+      chkHTML += `
+        <div class="check-item ${item.done ? 'done' : ''}">
+          <span class="box-chk" style="font-family:'Press Start 2P'; font-size:10px;">${item.done ? '[X]' : '[ ]'}</span>
+          <span>${item.text}</span>
+        </div>
+      `;
+    });
+  }
+  $('#hud-checklist-hook').innerHTML = chkHTML;
+}
+
+function varColor(key, val) {
+  if(key === 'pagod') return val > 70 ? 'var(--red)' : val > 40 ? 'var(--orange)' : 'var(--green)';
+  return val > 70 ? 'var(--green)' : val > 35 ? 'var(--yellow)' : 'var(--red)';
+}
+
+/* ─────────────────────────────────────────────────────────
+   AUTOMATIC CHECKLIST ENGINE & ACHIEVEMENTS TRACKER
+   ───────────────────────────────────────────────────────── */
+function syncChecklistObjectives(p) {
+  // 2026 Checkoffs
+  if(p.stats.kaalaman >= 40) checkItemById(p, "c26_1");
+  if(p.stats.ugnayan >= 40) checkItemById(p, "c26_2");
+  if(p.stats.komunikasyon >= 40) checkItemById(p, "c26_3");
+  if(p.stats.pananalapi >= 40) checkItemById(p, "c26_4");
+  
+  // 2027 Checkoffs
+  if(p.pos >= 4) {
+    if(p.stats.kaalaman >= 45) checkItemById(p, "c27_1");
+    if(p.stats.kaalaman >= 50) checkItemById(p, "c27_2");
+    if(p.stats.ugnayan >= 45) checkItemById(p, "c27_3");
+    if(p.pos >= 7) checkItemById(p, "c27_4");
+  }
+  
+  // 2028 Checkoffs
+  if(p.pos >= 8) {
+    if(p.stats.kaalaman >= 55) checkItemById(p, "c28_1");
+    checkItemById(p, "c28_2");
+    if(p.stats.reputasyon >= 50) checkItemById(p, "c28_3");
+  }
+  
+  // 2029 Checkoffs
+  if(p.pos >= 11) {
+    if(p.stats.kaalaman >= 60) checkItemById(p, "c29_1");
+    if(p.stats.reputasyon >= 60) checkItemById(p, "c29_2");
+    checkItemById(p, "c29_3");
+    if(p.stats.kaalaman >= 65) checkItemById(p, "c29_4");
+  }
+  
+  // 2030 Checkoffs
+  if(p.pos >= 14) {
+    checkItemById(p, "c30_1");
+    checkItemById(p, "c30_2");
+    if(p.stats.kaalaman >= 70) checkItemById(p, "c30_3");
+    if(p.stats.reputasyon >= 70) checkItemById(p, "c30_4");
+  }
+  
+  // 2031 Checkoffs
+  if(p.pos >= 18) {
+    if(p.stats.ugnayan >= 65) checkItemById(p, "c31_1");
+    if(p.stats.kaalaman >= 75) checkItemById(p, "c31_2");
+    if(p.stats.kaalaman >= 80) checkItemById(p, "c31_3");
+  }
+  
+  // 2032 Checkoffs
+  if(p.pos >= 20) {
+    if(p.stats.kaalaman >= 85) checkItemById(p, "c32_1");
+    if(p.stats.ugnayan >= 75) checkItemById(p, "c32_2");
+    if(p.stats.pananalapi >= 70) checkItemById(p, "c32_3");
+  }
+  
+  // 2034 Checkoffs
+  if(p.pos >= 23) {
+    if(p.stats.kaalaman >= 90) checkItemById(p, "c34_1");
+    if(p.stats.pananalapi >= 85) checkItemById(p, "c34_2");
+    if(p.stats.reputasyon >= 85) checkItemById(p, "c34_3");
+  }
+  
+  // 2035 Checkoffs
+  if(p.pos >= 26) {
+    checkItemById(p, "c35_1");
+    if(p.stats.pananalapi >= 95) checkItemById(p, "c35_2");
+  }
+
+  // Siyasatin ang paggawad ng mga permanenteng tropeo
+  awardAchievementsCheck(p);
+}
+
+function checkItemById(p, id) {
+  for(let year in p.checklist) {
+    p.checklist[year].forEach(item => {
+      if(item.id === id && !item.done) {
+        item.done = true;
+        p.score += 10;
+        showToast(`LAYUNIN NATAPOS: +10 MARKA!`);
+        Sound.bonus();
+      }
+    });
+  }
+}
+
+function awardAchievementsCheck(p) {
+  if(p.stats.kaalaman >= 60 && !p.achievements.includes("ach_90")) { p.achievements.push("ach_90"); showToast("🏆 MEDALYA: Honor Student!"); spawnConfetti(); }
+  if(p.pos >= 11 && !p.achievements.includes("ach_abm")) { p.achievements.push("ach_abm"); showToast("🏆 SERTIPIKO: ABM Elite!"); }
+  if(p.pos >= 14 && !p.achievements.includes("ach_numoa")) { p.achievements.push("ach_numoa"); showToast("🏆 PASAPORTE: Tunay na Nationalian!"); spawnConfetti(); }
+  if(p.stats.reputasyon >= 75 && p.pos >= 16 && !p.achievements.includes("ach_destaque")) { p.achievements.push("ach_destaque"); showToast("🏆 ABSOLUTE: Dean's Lister!"); }
+  if(p.stats.pananalapi >= 75 && p.pos >= 24 && !p.achievements.includes("ach_pse")) { p.achievements.push("ach_pse"); showToast("🏆 TROPEO: PSE Trader!"); }
+  if(p.pos >= 27 && !p.achievements.includes("ach_consult")) { p.achievements.push("ach_consult"); showToast("🏆 LISENSYA: Financial Guru!"); spawnConfetti(); }
+  if(p.stats.pananalapi >= 95 && p.pos >= 30 && !p.achievements.includes("ach_phd")) { p.achievements.push("ach_phd"); showToast("🏆 rurok: Diliman Scholar!"); spawnConfetti(); }
+}
+
+/* ─────────────────────────────────────────────────────────
+   BOARD GRAPHICS CANVAS ENGINE (SNAKE TIMELINE GRID)
+   ───────────────────────────────────────────────────────── */
+function getSpaceCoordinates(idx) {
+  const c = $("canvas#board");
+  const cols = 6;
+  const paddingX = 70, paddingY = 65;
+  const stepX = (c.width - 140) / (cols - 1);
+  const stepY = (c.height - 110) / 5;
+  
+  let row = Math.floor(idx / cols);
+  let col = idx % cols;
+  if(row % 2 === 1) col = (cols - 1) - col; // zigzag track
+  
+  return { x: paddingX + col * stepX, y: paddingY + row * stepY };
+}
+
+function drawBoard() {
+  const canvas = $("canvas#board"); if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0,0, canvas.width, canvas.height);
+  
+  // Background cyber pixel grit
+  ctx.fillStyle = "#081121"; ctx.fillRect(0,0, canvas.width, canvas.height);
+  ctx.strokeStyle = "rgba(37,58,96,0.4)"; ctx.lineWidth = 2;
+  for(let i=0; i<canvas.width; i+=40) { ctx.beginPath(); ctx.moveTo(i,0); ctx.lineTo(i,canvas.height); ctx.stroke(); }
+  for(let j=0; j<canvas.height; j+=40) { ctx.beginPath(); ctx.moveTo(0,j); ctx.lineTo(canvas.width,j); ctx.stroke(); }
+
+  // Draw timeline connecting lines
+  ctx.lineWidth = 14; ctx.strokeStyle = "#1b2a47"; ctx.lineCap = "round"; ctx.lineJoin = "round";
+  ctx.beginPath();
+  for(let i=0; i<BOARD_SPACES.length; i++) {
+    let pt = getSpaceCoordinates(i);
+    if(i===0) ctx.moveTo(pt.x, pt.y); else ctx.lineTo(pt.x, pt.y);
+  }
+  ctx.stroke();
+
+  // Highlight connections
+  ctx.lineWidth = 2; ctx.strokeStyle = "rgba(241,196,15,0.2)";
+  ctx.stroke();
+
+  // Render individual tiles
+  BOARD_SPACES.forEach((sp, idx) => {
+    let pt = getSpaceCoordinates(idx);
+    let baseColor = "#152238", borderColor = "#2c3e50";
+    
+    if(sp.type === "question") { baseColor = "#1a365d"; borderColor = "var(--blue)"; }
+    else if(sp.type === "card-draw") { baseColor = "#3b1a5d"; borderColor = "var(--purple)"; }
+    else if(sp.type === "minigame") { baseColor = "#1a5d44"; borderColor = "var(--cyan)"; }
+    else if(sp.type === "global") { baseColor = "#5d441a"; borderColor = "var(--orange)"; }
+    else if(sp.type === "finish") { baseColor = "#1a5d20"; borderColor = "var(--green)"; }
+
+    // Square box
+    ctx.fillStyle = baseColor; ctx.fillRect(pt.x - 20, pt.y - 16, 40, 32);
+    ctx.strokeStyle = borderColor; ctx.lineWidth = 3; ctx.strokeRect(pt.x - 20, pt.y - 16, 40, 32);
+    
+    // Tiny text indicator inside tile
+    ctx.font = '9px "Press Start 2P"'; ctx.fillStyle = "#fff"; ctx.textAlign = "center";
+    let icon = "⏳";
+    if(sp.type === "question") icon = "❓";
+    if(sp.type === "card-draw") icon = "★";
+    if(sp.type === "minigame") icon = "🎮";
+    if(sp.type === "global") icon = "🌍";
+    if(sp.type === "finish") icon = "👑";
+    ctx.fillText(icon, pt.x, pt.y + 4);
+
+    // Year tag below tile
+    ctx.font = '11px "VT323"'; ctx.fillStyle = "var(--muted)";
+    ctx.fillText(sp.year, pt.x, pt.y - 20);
+  });
+
+  // Render player tokens on the board matrix
+  players.forEach((p, pIdx) => {
+    let pt = getSpaceCoordinates(p.pos);
+    let offset = [ [-10,-10], [10,-10], [-10,10], [10,10] ][pIdx] || [0,0];
+    
+    ctx.fillStyle = p.color; ctx.fillRect(pt.x + offset[0] - 8, pt.y + offset[1] - 8, 16, 16);
+    ctx.strokeStyle = "#fff"; ctx.lineWidth = 1.5; ctx.strokeRect(pt.x + offset[0] - 8, pt.y + offset[1] - 8, 16, 16);
+    
+    ctx.font = '12px "Arial"'; ctx.textAlign = "center";
+    ctx.fillText(p.avatar, pt.x + offset[0], pt.y + offset[1] + 4);
+  });
+}
+
+/* ─────────────────────────────────────────────────────────
+   DICE CONTROLLER RIG
+   ───────────────────────────────────────────────────────── */
+function triggerDiceRoll() {
+  if(gameOver) return;
+  const p = players[turn];
+  
+  if(p.skip > 0) {
+    p.skip--;
+    logFeed(`${p.avatar} ${p.name} ay lumaktaw sa pagkakataong ito upang magpahinga mula sa Burnout.`);
+    Sound.wrong();
+    shiftTurn();
+    return;
+  }
+
+  $('#btn-roll-dice').disabled = true;
+  let counter = 0;
+  let diceBox = $('#html-dice');
+  
+  let loop = setInterval(() => {
+    let rand = Math.floor(Math.random() * 6) + 1;
+    diceBox.textContent = rand;
+    Sound.roll();
+    counter++;
+    if(counter > 12) {
+      clearInterval(loop);
+      executeMove(rand);
+    }
+  }, 65);
+}
+
+function executeMove(steps) {
+  const p = players[turn];
+  p.pos = Math.min(BOARD_SPACES.length - 1, p.pos + steps);
+  drawBoard();
+  updateHUD();
+  
+  let currentSpace = BOARD_SPACES[p.pos];
+  logFeed(`${p.name} ay umabante ng ${steps} taon patungong: [${currentSpace.title}]`);
+  
+  setTimeout(() => resolveSpaceAction(), 600);
+}
+
+/* ─────────────────────────────────────────────────────────
+   SPACE ACTIONS & DECISION / CARD DECK COMPILER
+   ───────────────────────────────────────────────────────── */
+function resolveSpaceAction() {
+  const p = players[turn];
+  const sq = BOARD_SPACES[p.pos];
+
+  // Awtomatikong kontrol sa Estres at Burnout bago mag-aksyon
+  if(p.stats.pagod >= 85) {
+    logFeed(`🚨 Babala: Masyadong mataas ang Estres ni ${p.name}! Napilitang magpahinga.`);
+    p.skip = 1;
+    p.stats.pagod = 30;
+    p.stats.reputasyon -= 10;
+  }
+
+  switch(sq.type) {
+    case "neutral":
+      // Dagdag default attributes base sa karera
+      applyStatChange(p, { kaalaman: 5, reputasyon: 5 });
+      openDecisionModal(sq.title, sq.desc, [
+        { text: "Ipagsabay ang lahat nang may kumpiyansa.", eff: { kaalaman:10, komunikasyon:5, pagod:10 } },
+        { text: "Balansehin ang kalusugan at pag-aaral.", eff: { pagod:-15, ugnayan:10 } }
+      ]);
+      break;
+      
+    case "card-draw":
+      drawFateCard(p);
+      break;
+      
+    case "question":
+      triggerQuestionModal(sq);
+      break;
+      
+    case "minigame":
+      triggerMinigameModal(sq);
+      break;
+      
+    case "global":
+      triggerGlobalModal(sq);
+      break;
+      
+    case "finish":
+      p.finished = true;
+      p.score += 50;
+      logFeed(`🏁 NAKARATING NA SI ${p.name} SA PINAL NA MITHIIN NG PhD!`);
+      verifyGameEndStatus();
+      break;
+  }
+}
+
+function applyStatChange(p, eff) {
+  for(let key in eff) {
+    if(p.stats.hasOwnProperty(key)) {
+      p.stats[key] = Math.min(100, Math.max(0, p.stats[key] + eff[key]));
+    }
+  }
+}
+
+function openDecisionModal(title, desc, options) {
+  const modal = $('#game-modal-overlay');
+  const wrap = $('#modal-content-wrapper');
+  
+  let optionsHTML = '';
+  options.forEach((opt, idx) => {
+    optionsHTML += `<div class="decision-option card" onclick="resolveDecisionChoice(${idx})">${opt.text}</div>`;
+  });
+
+  wrap.innerHTML = `
+    <span class="modal-tag" style="background:var(--yellow)">STRATEGIC DECISION</span>
+    <h2 class="px-font" style="font-size:14px; color:var(--yellow);">${title}</h2>
+    <p class="mg-container">${desc}</p>
+    <div>${optionsHTML}</div>
+  `;
+  
+  // I-save ang mga opsyon sa temporaryong pandaigdigang pag-aari ng window
+  window.currentModalOptions = options;
+  modal.classList.add('show');
+}
+
+function resolveDecisionChoice(idx) {
+  const p = players[turn];
+  const opt = window.currentModalOptions[idx];
+  applyStatChange(p, opt.eff);
+  
+  $('#game-modal-overlay').classList.remove('show');
+  logFeed(`Pinili ni ${p.name}: ${opt.text}`);
+  Sound.bonus();
+  shiftTurn();
+}
+
+/* ── SHUFFLED CARD DECK SYSTEM ── */
+function drawFateCard(p) {
+  // Kumuha ng random na kard mula sa opisyal na deck ng party game
+  let card = CARDS_POOL[Math.floor(Math.random() * CARDS_POOL.length)];
+  applyStatChange(p, card.effect);
+  
+  const modal = $('#game-modal-overlay');
+  const wrap = $('#modal-content-wrapper');
+  
+  wrap.innerHTML = `
+    <span class="modal-tag" style="background:var(--purple)">KARD NG TADHANA: ${card.type}</span>
+    <h2 class="px-font" style="font-size:15px; color:var(--purple);">${card.name}</h2>
+    <div class="mg-container" style="font-size:20px; line-height:1.4;">${card.desc}</div>
+    <p style="color:var(--yellow); font-size:16px; margin-bottom:15px;">EPEKTO SA ATRIBUTO NG KARERA:</p>
+    <ul style="margin-left:20px; font-size:16px; color:var(--muted);">
+      ${Object.entries(card.effect).map(([k,v]) => `<li>${k.toUpperCase()}: ${v > 0 ? '+' : ''}${v}</li>`).join('')}
+    </ul>
+    <button onclick="$('#game-modal-overlay').classList.remove('show'); shiftTurn();" class="btn-purple" style="margin-top:15px; width:100%;">TANGGAPIN ANG TADAHANA</button>
+  `;
+  modal.classList.add('show');
+  Sound.bonus();
+}
+
+/* ─────────────────────────────────────────────────────────
+   EXPERT MANAGEMENT & ACCOUNTS QUESTIONS ENGINE
+   ───────────────────────────────────────────────────────── */
+function triggerQuestionModal(sq) {
+  const p = players[turn];
+  const pool = EXPERT_QUESTIONS[sq.topic] || EXPERT_QUESTIONS.academic;
+  const q = pool[Math.floor(Math.random() * pool.length)];
+
+  const modal = $('#game-modal-overlay');
+  const wrap = $('#modal-content-wrapper');
+
+  let optionsHTML = '';
+  q.o.forEach((opt, idx) => {
+    optionsHTML += `<div class="decision-option card" onclick="verifyQuestionAnswer(${idx}, ${q.a}, ${q.pts})">${opt}</div>`;
+  });
+
+  wrap.innerHTML = `
+    <span class="modal-tag" style="background:var(--blue)">AKADEMIKONG PAGSURI — TOPIC: ${sq.topic.toUpperCase()}</span>
+    <h2 class="px-font" style="font-size:12px; color:var(--blue);">${sq.title}</h2>
+    <div class="mg-container" style="font-size:19px;">${q.q}</div>
+    <div>${optionsHTML}</div>
+    <div style="font-size:13px; color:var(--muted); margin-top:8px;">Halaga ng Marka: +${q.pts} Puntos</div>
+  `;
+  modal.classList.add('show');
+}
+
+function verifyQuestionAnswer(selected, correct, pts) {
+  const p = players[turn];
+  $('#game-modal-overlay').classList.remove('show');
+
+  if(selected === correct) {
+    p.score += pts;
+    applyStatChange(p, { kaalaman: 15, reputasyon: 10, pagod: 5 });
+    logFeed(`✅ TAMA! Sinagot nang wasto ni ${p.name} ang akademiko o pinansyal na pagsubok. +${pts} pts!`);
+    Sound.correct();
+  } else {
+    p.score = Math.max(0, p.score - Math.floor(pts/2));
+    p.errors++;
+    applyStatChange(p, { pagod: 15, reputasyon: -5 });
+    logFeed(`❌ MALI! Nabigo si ${p.name} sa akademikong tanong. Nawalan ng puntos.`);
+    Sound.wrong();
+  }
+  shiftTurn();
+}
+
+/* ─────────────────────────────────────────────────────────
+   PARTY GAME MULTIPLE MINIGAMES ENGINE
+   ───────────────────────────────────────────────────────── */
+function triggerMinigameModal(sq) {
+  const p = players[turn];
+  // Pumili ng minigame base sa pwesto o randomizer
+  let types = ["timing", "sort", "clicker"];
+  let gameType = types[p.pos % types.length];
+  
+  const modal = $('#game-modal-overlay');
+  const wrap = $('#modal-content-wrapper');
+
+  wrap.innerHTML = `
+    <span class="modal-tag" style="background:var(--cyan)">INTERAKTIBONG MINIGAME NG KARERA</span>
+    <h2 id="mg-title" class="px-font" style="font-size:13px; color:var(--cyan);">${sq.title}</h2>
+    <div id="mg-sandbox-hook"></div>
+  `;
+  modal.classList.add('show');
+
+  if(gameType === "timing") launchTimingGame(p);
+  else if(gameType === "sort") launchSortGame(p);
+  else launchClickerGame(p);
+}
+
+// MINIGAME 1: TIMING CRUNCH EXAM
+function launchTimingGame(p) {
+  const hook = $('#mg-sandbox-hook');
+  hook.innerHTML = `
+    <p style="margin-bottom:10px;">Pindutin ang spacebar o ang buton kapag ang gumagalaw na linya ay nasa gitna ng berdeng sona!</p>
+    <div style="width:100%; height:30px; background:#222; position:relative; border:2px solid #fff;">
+      <div style="position:absolute; left:45%; width:10%; height:100%; background:var(--green);"></div>
+      <div id="mg-bar-cursor" style="position:absolute; left:0%; width:4px; height:100%; background:var(--red);"></div>
+    </div>
+    <button id="btn-mg-hit" class="btn-green" style="width:100%; margin-top:15px;">HIT!</button>
+  `;
+
+  let cursorX = 0, dir = 2;
+  let interval = setInterval(() => {
+    let el = $('#mg-bar-cursor'); if(!el) { clearInterval(interval); return; }
+    cursorX += dir;
+    if(cursorX >= 99 || cursorX <= 0) dir = -dir;
+    el.style.left = cursorX + '%';
+  }, 16);
+
+  $('#btn-mg-hit').onclick = () => {
+    clearInterval(interval);
+    $('#game-modal-overlay').classList.remove('show');
+    if(cursorX >= 43 && cursorX <= 55) {
+      p.score += 25; applyStatChange(p, { kaalaman:20, reputasyon:15 });
+      logFeed(`🏆 TAGUMPAY! Perpektong timing sa pagsusulit si ${p.name}! +25pts.`);
+      Sound.correct(); spawnConfetti();
+    } else {
+      applyStatChange(p, { pagod:20 });
+      logFeed(`😢 Kabiguan. Kulang sa paghahanda si ${p.name} sa timing drill.`);
+      Sound.wrong();
+    }
+    shiftTurn();
+  };
+}
+
+// MINIGAME 2: DOCUMENT SORT (ABM STRAND MECHANIC)
+function launchSortGame(p) {
+  const hook = $('#mg-sandbox-hook');
+  let terms = [
+    { t:"Assets", type:"good" }, { t:"Liabilities", type:"good" },
+    { t:"Net Profit", type:"good" }, { t:"Burnout", type:"bad" },
+    { t:"Katamaran", type:"bad" }, { t:"PSE Stocks", type:"good" }
+  ];
+  let currentItem = 0;
+
+  function loadItem() {
+    if(currentItem >= terms.length) {
+      $('#game-modal-overlay').classList.remove('show');
+      p.score += 25; applyStatChange(p, { kaalaman:15, pananalapi:15 });
+      logFeed(`🏆 MAHUSAY! Tamang naisaayos ni ${p.name} ang mga dokumento sa negosyo. +25pts.`);
+      Sound.correct(); shiftTurn(); return;
+    }
+    hook.innerHTML = `
+      <p style="margin-bottom:10px;">I-uri ang salita: <b>Mabuti para sa Karera</b> o <b>Sagabal / Malaking Estres</b>?</p>
+      <div class="mg-container" style="text-align:center; font-size:24px; font-weight:bold; color:var(--yellow);">${terms[currentItem].t}</div>
+      <div style="display:flex; gap:10px;">
+        <button id="btn-sort-good" class="btn-green" style="flex:1;">MABUTI</button>
+        <button id="btn-sort-bad" class="btn-red" style="flex:1;">SAGABAL</button>
+      </div>
+    `;
+    
+    $('#btn-sort-good').onclick = () => checkSortChoice("good");
+    $('#btn-sort-bad').onclick = () => checkSortChoice("bad");
+  }
+
+  function checkSortChoice(choice) {
+    if(terms[currentItem].type === choice) {
+      Sound.bonus(); currentItem++; loadItem();
+    } else {
+      $('#game-modal-overlay').classList.remove('show');
+      applyStatChange(p, { pagod:20, reputasyon:-5 });
+      logFeed(`❌ Nagkamali sa pag-uri ng dokumento si ${p.name}. Naantala ang plano.`);
+      Sound.wrong(); shiftTurn();
+    }
+  }
+  loadItem();
+}
+
+// MINIGAME 3: QUICK CLICK INVESTMENT TICKER
+function launchClickerGame(p) {
+  const hook = $('#mg-sandbox-hook');
+  let clicks = 0, target = 15;
+  hook.innerHTML = `
+    <p style="margin-bottom:10px;">Mabilisang kalakal sa Philippine Stock Exchange (PSE)! Pindutin ang buton ng 15 beses bago maubos ang 5 segundo!</p>
+    <div class="px-font" id="mg-click-counter" style="font-size:20px; color:var(--green); text-align:center; margin:15px 0;">MGA PINDOT: 0 / 15</div>
+    <button id="btn-mg-click" class="btn-blue" style="width:100%; font-size:16px;">MABILISANG BILI/BENTA!</button>
+  `;
+
+  let timeout = setTimeout(() => {
+    $('#game-modal-overlay').classList.remove('show');
+    applyStatChange(p, { pagod:15 });
+    logFeed(`⏱ Naubusan ng oras! Mabagal ang naging aksyon ni ${p.name} sa PSE simulator.`);
+    Sound.wrong(); shiftTurn();
+  }, 5000);
+
+  $('#btn-mg-click').onclick = () => {
+    clicks++;
+    $('#mg-click-counter').textContent = `MGA PINDOT: ${clicks} / ${target}`;
+    Sound.roll();
+    if(clicks >= target) {
+      clearTimeout(timeout);
+      $('#game-modal-overlay').classList.remove('show');
+      p.score += 30; applyStatChange(p, { pananalapi:25, kaalaman:15 });
+      logFeed(`🏆 BINGO! Malaking tubo sa stock market ang nakuha ni ${p.name}! +30pts.`);
+      Sound.correct(); spawnConfetti(); shiftTurn();
+    }
+  };
+}
+
+/* ─────────────────────────────────────────────────────────
+   GLOBAL EVENT RIG (SABAYANG PAGSUSULIT NG MGA PILO)
+   ───────────────────────────────────────────────────────── */
+function triggerGlobalModal(sq) {
+  const ev = GLOBAL_EVENTS[sq.globalId];
+  const modal = $('#game-modal-overlay');
+  const wrap = $('#modal-content-wrapper');
+
+  let playersRowsHTML = '';
+  players.forEach((pl, i) => {
+    let optsHTML = ev.o.map((o, oIdx) => `<option value="${oIdx}">${o}</option>`).join('');
+    playersRowsHTML += `
+      <div style="display:flex; justify-content:space-between; align-items:center; background:var(--panel2); padding:8px; border:2px solid var(--border); margin-bottom:6px;">
+        <span style="color:${pl.color}; font-size:16px;">${pl.avatar} ${pl.name}:</span>
+        <select id="global-sel-${i}" style="width:60%; font-size:16px;">${optsHTML}</select>
+      </div>
+    `;
+  });
+
+  wrap.innerHTML = `
+    <span class="modal-tag" style="background:var(--orange)">🌍 PANDAIGDIGANG SABAYANG KAGANAPAN</span>
+    <h2 class="px-font" style="font-size:11px; color:var(--orange);">${ev.title}</h2>
+    <p class="mg-container" style="font-size:18px;">${ev.desc}</p>
+    <div>${playersRowsHTML}</div>
+    <p style="font-size:13px; color:var(--yellow); margin:8px 0;">${ev.effect}</p>
+    <button id="btn-submit-global" class="btn-green" style="width:100%; margin-top:10px;">ITUGMA ANG MGA SAGOT NG LAHAT</button>
+  `;
+  modal.classList.add('show');
+
+  $('#btn-submit-global').onclick = () => {
+    let logSummary = [];
+    players.forEach((pl, i) => {
+      let sel = parseInt($(`#global-sel-${i}`).value);
+      if(sel === ev.a) {
+        pl.score += 25; applyStatChange(pl, { kaalaman:20, reputasyon:15 });
+        logSummary.push(`<span style="color:${pl.color}">${pl.name} (TAMA)</span>`);
+      } else {
+        pl.errors++; applyStatChange(pl, { pagod:20, reputasyon:-5 });
+        logSummary.push(`<span style="color:${pl.color}">${pl.name} (MALI)</span>`);
+      }
+    });
+
+    $('#game-modal-overlay').classList.remove('show');
+    logFeed(`Tapos na ang Sabayang Pagsusulit! Resulta: ` + logSummary.join(', '));
+    Sound.win(); spawnConfetti();
+    shiftTurn();
+  };
+}
+
+/* ─────────────────────────────────────────────────────────
+   TURN MACHINE & FINAL RESULTS
+   ───────────────────────────────────────────────────────── */
+function shiftTurn() {
+  if(gameOver) return;
+  // Lipat sa susunod na aktibong manlalaro gamit ang bilog na matematika
+  turn = (turn + 1) % players.length;
+  updateHUD();
+  $('#btn-roll-dice').disabled = false;
+  drawBoard();
+}
+
+function verifyGameEndStatus() {
+  // Ang laro ay natatapos kung ang lahat ng manlalaro ay nakarating na sa huling pwesto ng 2035
+  let allDone = players.every(pl => pl.finished || pl.pos >= BOARD_SPACES.length - 1);
+  if(allDone) {
+    gameOver = true;
+    showFinalLeaderboard();
+  } else {
+    shiftTurn();
+  }
+}
+
+function showFinalLeaderboard() {
+  $('#game-screen').classList.remove('active');
+  $('#final-screen').classList.add('active');
+  Sound.win(); spawnConfetti();
+
+  // Pagsunud-sunurin ang mga manlalaro base sa pinakamataas na marka
+  let sorted = [...players].sort((a,b) => b.score - a.score);
+  const hook = $('#final-ranking-hook');
+  hook.innerHTML = '';
+
+  sorted.forEach((pl, idx) => {
+    const item = document.createElement('div');
+    item.className = 'card';
+    item.style.borderColor = pl.color;
+    item.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span class="px-font" style="font-size:16px;">#${idx+1} ${pl.avatar} ${pl.name}</span>
+        <span class="px-font" style="color:var(--yellow); font-size:14px;">${pl.score} PTS</span>
+      </div>
+      <p style="font-size:16px; color:var(--muted); margin-top:6px;">
+        Mga Natapos na Katangian: Kaalaman ${pl.stats.kaalaman}% | Pananalapi ${pl.stats.pananalapi}% | Reputasyon ${pl.stats.reputasyon}%
+      </p>
+    `;
+    hook.appendChild(item);
+  });
+}
+</script>
+</body>
+</html>
